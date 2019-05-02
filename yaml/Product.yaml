@@ -1,0 +1,681 @@
+openapi: 3.0.0
+# Added by API Auto Mocking Plugin
+servers:
+# Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/htds2/Product/1.0.0
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/api_g2/Product/1.0.0
+info:
+  description: Product API of HT
+  x-Domain: Merchandising Execution
+  x-Capability: Product Catalog Management
+  version: "1.0.0"
+  title: Product API of HT
+  contact:
+    email: you@your-company.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+
+tags:
+
+  - name: Product
+    description: Secured Admin-only calls
+  - name: StateProduct
+    description: event of product
+  - name: EanProduct
+    description: event of product
+  - name: HierarchyProduct
+    description: hierarchy of product
+    
+paths:
+  /product:
+    post:
+      tags:
+        - Product
+      summary: create a product
+      operationId: ProductCreated
+      description: create a product
+      requestBody: 
+        content:
+           application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        201:
+          description: product created
+        400:
+          description: bad request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+        406:
+          description: The product entered already exists
+        500:
+          description: Internal server error
+        501:
+          description: Not Implemented
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+        - Product
+      summary: update a product 
+      operationId: ProductUpdated
+      description: update a product
+      requestBody: 
+        content:
+           application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        201:
+          description: product successfully updated
+        400:
+          description: bad request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+        500:
+          description: Internal server error
+        501:
+          description: Not Implemented
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /product/{skuId}:
+    get:
+      tags:
+        - Product
+      summary: Get Product By SKU
+      operationId: getProduct
+      description: Get a Product By SKU
+      parameters:
+        - in: path
+          name: skuId
+          description: sku a product
+          required: true
+          schema:
+            type: string
+      responses:
+        201:
+          description: Product information requested
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        400:
+          description: bad request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+        500:
+          description: Internal server error
+        501:
+          description: Not Implemented
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    
+  /product/{skuId}/state:
+    put:
+      tags:
+        - StateProduct
+      summary: state updated
+      operationId: StateUpdated
+      description: update state of product
+      parameters:
+        - name: skuId
+          in: path
+          description: sku of product
+          required: true
+          schema:
+            type: string
+        - name: state
+          in: path
+          description: state updating product
+          required: true
+          schema:
+            type: string
+            enum: 
+              - Activo
+              - Inactivo
+              - Purgado
+              - Descontinuado
+      responses:
+        201:
+          description: state of product successfully updated
+        400:
+          description: bad request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+        405:
+          description: state invalid
+        500:
+          description: Internal server error
+        501:
+          description: Not Implemented
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  /product/{skuId}/ean:
+    put:
+      tags:
+        - EanProduct
+      summary: ean updated
+      operationId: EanUpdated
+      description: update ean of product
+      parameters:
+        - name: skuId
+          in: path
+          description: sku of product
+          required: true
+          schema:
+            type: string
+        - name: ean
+          in: path
+          description: ean updating product
+          required: true
+          schema:
+            type: string
+      responses:
+        201:
+          description: ean of product successfully updated
+        400:
+          description: bad request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+        405:
+          description: ean invalid
+        500:
+          description: Internal server error
+        501:
+          description: Not Implemented
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  /product/{skuId}/hierarchy:
+    put:
+      tags:
+        - HierarchyProduct
+      summary: hierarchy updated
+      operationId: HierarchyUpdated
+      description: update state of product
+      parameters:
+        - name: skuId
+          in: path
+          description: sku of product
+          required: true
+          schema:
+            type: string
+      requestBody: 
+        content:
+           application/json:
+            schema:
+              $ref: '#/components/schemas/Hierarchy'
+        required: true
+      responses:
+        201:
+          description: hierarchy of product successfully updated
+        400:
+          description: bad request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+        405:
+          description: hierarchy invalid or incomplete
+        500:
+          description: Internal server error
+        501:
+          description: Not Implemented
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Attribute:
+      type:
+        object
+      properties:
+        nameAttribute:
+          type: string
+          maxLength: 50
+          description: Attribute name
+          example: "CONDICION VENTA"
+        value:
+          type: string
+          maxLength: 50
+          description: Attribute value
+          example: "PROPIA"
+  
+    Hierarchy:
+      type:
+        object
+      properties:
+        skuCode:
+          type: string
+          maxLength: 12
+          description: code level 1 SKU
+          example: "41864217"
+        skuName:
+          type: string
+          maxLength: 50
+          description: description level 1 hierarchy
+          example: "CAFETERA MANUAL DOLCE GUSTO INFIN ROJO CAJ X1UND"
+        subClase:
+          type: string
+          maxLength: 12
+          description: code level hierarchy
+          example: "J0101070206"
+        subClaseName:
+          type: string
+          maxLength: 50
+          description: description level hierarchy
+          example: "MAQUINA CAFETERA DVD FOLIO"
+        clase:
+          type: string
+          maxLength: 12
+          description: code level hierarchy
+          example: "J01010702"
+        claseName:
+          type: string
+          maxLength: 50
+          description: description level hierarchy
+          example: "CAFE"
+        subDept:
+          type: string
+          maxLength: 12
+          description: code level hierarchy
+          example: "J010107"
+        subDeptName:
+          type: string
+          maxLength: 50
+          description: description level hierarchy
+          example: "DESAYUNOS/DULCES"
+        dept:
+          type: string
+          maxLength: 12
+          description: code level hierarchy
+          example: "J0101"
+        deptName:
+          type: string
+          maxLength: 50
+          description: description level hierarchy
+          example: "ABARROTES"
+        division:
+          type: string
+          maxLength: 12
+          description: code level hierarchy
+          example: "J01"
+        divisionName:
+          type: string
+          maxLength: 50
+          description: description level hierarchy
+          example: "PGC COMESTIBLE"
+    LogisticAttributes:
+      type:
+        object
+      properties:
+        unitWeight:
+          type: string
+          maxLength: 10
+          nullable: true
+          description: unit of weight product
+          example: "KG"
+        valueWeight:
+          type: number
+          format: float
+          nullable: true
+          description: value weight
+          example: 0.4400
+        unitMeasure:
+          type: string
+          maxLength: 10
+          nullable: true
+          description: unit of measurement of dimensions
+          example: "CMT"
+        length:
+          type: number
+          format: float
+          nullable: true
+          description: length of product (presicion [7,3])
+          example: 16.256
+        width:
+          type: number
+          format: float
+          nullable: true
+          description: width of product (presicion [7,3])
+          example: 8.636
+        high:
+          type: number
+          format: float
+          nullable: true
+          description: high of product (presicion [7,3])
+          example: 34.544
+        unitMeasureCasePack:
+          type: string
+          nullable: true
+          maxLength: 10
+          description: unit of measurement of dimensions of casepach
+          example: "CMT"
+        lengthCasePack:
+          type: number
+          format: float
+          nullable: true
+          description: length of product (presicion [10,3])
+          example: 68.000
+        widthCasePack:
+          type: number
+          format: float
+          nullable: true
+          description: width of product (presicion [10,3])
+          example: 50.000
+        highCasePack:
+          type: number
+          format: float
+          nullable: true
+          description: high of product (presicion [10,3])
+          example: 36.000
+        palletHi:
+          type: integer
+          format: int32
+          nullable: true
+          description: estiba pallet
+          example: 3
+        palletTier:
+          type: number
+          format: float
+          nullable: true
+          description: camada pallet  (presicion [6,2])
+          example: 3.00
+    Ean:
+      type: object
+      required: 
+      - eanSecundary
+      properties:
+        eanSecundary:
+          type: integer
+          format: int32
+          minLength: 10
+          maxLength: 18
+          description: ean secundary of product
+          
+    
+    ConditionConservation:
+      type: object
+      properties:
+        tvu: 
+          type: integer
+          format: int32
+          maxLength: 12
+          nullable: true
+          description: life time of product (days)
+        conservation:
+          type: string
+          maxLength: 400
+          nullable: true
+          description: detail conditions of conservation of product
+          example: 'Mantener refrigerado a 25c'
+        typeSanitaryRegistration:
+          type: string
+          maxLength: 5
+          nullable: true
+          description: type of sanitary registration 
+          example: "RS"
+        numSanitaryRegistration:
+          type: string
+          maxLength: 50
+          nullable: true
+          description: number or code of sanitary registration 
+          example: 'RSKKN09-89'
+        startDateSanitaryRegistration:
+          type: string
+          format: date
+          nullable: true
+          description: "start date of apply sanitary registration (format: yyyy-mm-dd)"
+          example: '2018-12-01'
+        endDateSanitaryRegistration:
+          type: string
+          format: date
+          nullable: true
+          description: "end date of apply sanitary registration(format: yyyy-mm-dd)"
+          example: '2020-11-02'
+        tmr:
+          type: integer
+          format: int32
+          maxLength: 12
+          nullable: true
+          description: minimum time of receipt of product (in days)
+          example: 389
+    
+    Assortment:
+      type: object
+      properties:
+        store:
+          type: number
+          format: int32
+          maxLength: 12
+          description: store that sells the product
+          example: 123
+    
+    Multivalue:
+      type: object
+      required:
+      - id
+      - title
+      - value
+      properties:
+        id:
+          type: string
+          description: Multivalue attribute ID
+          example: "2643"
+        lovId:
+          type: string
+          description: Identifier of the associated list of values
+          example: "8952"
+        title:
+          type: string
+          description: Multivalue attribute title
+          example: Marca
+        value:
+          type: array
+          description: Multivalue attribute value
+          example: LG
+          items:
+            type: string
+            
+    Product:
+      type: object
+      required:
+      - description
+      
+      properties:
+        sku:
+          type: string
+          description: product identifier
+          maxLength: 12
+          example: "41864217"
+        description:
+          type: string
+          description: Product name
+          maxLength: 50
+          example: "CAFETERA MANUAL DOLCE GUSTO INFIN ROJO CAJ X1UND"
+        levelId:
+          type: integer
+          format: int32
+          maxLength: 1
+          description: level ID product. 0=style 1=sku
+          example: 1
+        brand:
+          type: string
+          description: brand of product
+          maxLength: 40
+          example: "NESCAFE"
+        model:
+          type: string
+          maxLength: 50
+          nullable: true
+          description: model of product
+          example: "12396090"
+        productType:
+          type: string
+          maxLength: 50
+          description: type of producto for example servicio insumo
+          example: "MercaderĂ­a"
+        country:
+          type: string
+          maxLength: 40
+          nullable: true
+          description: country of origin 
+          example: "REPUBLICA POPULAR CHINA"
+        status:
+          type: string
+          maxLength: 30
+          description: status product
+          example: "Activo"
+        ean:
+          type: integer
+          format: int32
+          minLength: 10
+          maxLength: 18
+          description: ean primary ean13 o ean14
+          example: 7613036939423
+        unitMeasure:
+          type: string
+          nullable: true
+          maxLength: 10
+          description: unit of measure of product
+          example: "CMT"
+        saleUnit:
+          type: string
+          nullable: true
+          maxLength: 10
+          description: unit of sale 
+          example: "UN"
+        posDescription:
+          type: string
+          maxLength: 40
+          description: description of product for POS
+          example: "CAF DOL INF RJ 1"
+        flejeDescription:
+          type: string
+          maxLength: 40
+          nullable: true
+          description: description of fleje for POS
+          example: "CAFETERA DOLCE GUSTO INFIN RJ X1UND"
+        codeSupplier:
+          type: string
+          maxLength: 13
+          description: rut supplier
+          example: "2026332249"
+        nameSupplier:
+          type: string
+          maxLength: 40
+          description: commercial name of supplier
+          example: "NESTLE PERU S.A."
+        qtyCasePack:
+          type: number
+          format: float
+          description: "quantity of product per package, unit of purchase. format[10,4]"
+          example: 2.0000
+        nameCasePack:
+          type: string
+          description: description de casepack
+          example: "CAFETERA DOLCE GUSTO INFIN RJ X1UND"
+        codeSUNAT:
+          type: string
+          description: UNSPSC code, sunat normative code
+          example: "99999999"
+        eanSecundary:
+          type: array
+          nullable: true
+          description: list of ean secundary
+          items:
+            $ref: '#/components/schemas/Ean'
+        hierarchy:
+          $ref: '#/components/schemas/Hierarchy'
+        logisticAttributes:
+          $ref: '#/components/schemas/LogisticAttributes'
+        conservation:
+          $ref: '#/components/schemas/ConditionConservation'
+        assortment:
+          type: array
+          description: list of store 
+          items:
+            $ref: '#/components/schemas/Assortment'
+        attribute:
+          type: array
+          nullable: true
+          description: List of product attributes
+          items:
+            $ref: '#/components/schemas/Attribute'
+        multivalue:
+          type: array
+          nullable: true
+          description: List of product attributes
+          items:
+            $ref: '#/components/schemas/Multivalue'
+    Error:
+      title: Error
+      required:
+      - userMessage
+      type: object
+      properties:
+        userMessage:
+          type: string
+          description: User error message
+          example: Unexpected error...
+        internalMessage:
+          type: string
+          description: Internal system error message
+          example: Internal error...
+        moreInfo:
+          type: string
+          description: Additional error information
+          example: for more information enter wwww.moreinfo.com
+      description: Standard structure for unexpected errors
