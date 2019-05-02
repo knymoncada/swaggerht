@@ -1,0 +1,322 @@
+openapi: 3.0.0
+servers:
+# Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/htds1/CustomerOrder/1.0.0
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/htds/CustomerOrder/1.0.0
+info:
+  title: Customer Order HT
+  description: HT capabilities for customer  orders
+  x-Domain: Supply Chain Execution
+  x-Capability: Order Management
+  version: "1.0.0"
+  contact:
+    name: DSR
+    email: pmmm_soporte_api@tottus.com.pe
+  
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: OrderCustomer
+    description: operations by order customer
+security:
+- accessCode:
+  - read:customerOrder
+  - write:customerOrder
+paths:
+  /orderCustomer:
+    get:
+      tags:
+        - OrderCustomer
+      summary: Get customer order
+      operationId: getOrderCustomer
+      description: Get a customer order
+      security: 
+        - oAuth2AuthCode: 
+          - read:customerOrder
+      parameters:
+        - in: path
+          name: orderId
+          description: code order customer
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: order customer requested
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/orderCustomer'
+        400:
+          description: bad request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: order customer not Found
+        500:
+          description: Internal server error
+        501:
+          description: Not Implemented
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    post:
+      tags:
+        - OrderCustomer
+      summary: create customer order
+      operationId: OrderCreated
+      description: created order customer
+      security: 
+        - oAuth2AuthCode: 
+          - write:customerOrder
+      requestBody: 
+        content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/orderCustomer'
+      responses:
+        200:
+          description: successful operation
+        400:
+          description: bad request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        500:
+          description: Internal server error
+        501:
+          description: Not Implemented
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  
+components:
+  schemas:
+    skuDispatch:
+      properties:
+        sku:
+          maxLength: 12
+          type: string
+          example: "7373133"
+        quantity:
+          type: number
+          format: float
+          example: 56
+    dispatchFolio:
+      properties:
+        dispatchWh:
+          maxLength: 10
+          type: integer
+          format: int32
+        deliveryWh:
+          maxLength: 10
+          type: integer
+          format: int32
+        salesStore:
+          maxLength: 10
+          type: integer
+          format: int32
+        rutProvider:
+          maxLength: 20
+          type: string
+          nullable: true
+        folioDateDispatch:
+          type: string
+          description: ' (format yyyy-mm-dd)'
+          format: date
+        folioHourDispatch:
+          maxLength: 8
+          type: string
+          description: format hi24:mi:ss
+        folioSkuDispatch:
+          maxLength: 12
+          type: string
+          nullable: true
+        folioPriceDispatch:
+          type: number
+          format: float
+          example: 120
+        sku:
+          type: array
+          items:
+            $ref: '#/components/schemas/skuDispatch'
+    purchaser:
+      properties:
+        customerAddress:
+          maxLength: 100
+          type: string
+          description: address customer
+          nullable: true
+        customerDocumentNumber:
+          maxLength: 20
+          type: string
+          description: number document type
+          example: "56576672"
+        customerDocumentType:
+          maxLength: 20
+          type: string
+          description: name document type
+          example: DNI
+        customerLastName:
+          maxLength: 100
+          type: string
+          description: last name customer
+          example: Manrique
+        customerName:
+          maxLength: 100
+          type: string
+          description: name customer
+          example: Angelica
+        customerPhone:
+          maxLength: 20
+          type: string
+          description: customer phone
+          nullable: true
+    receiver:
+      properties:
+        receiverAddress:
+          maxLength: 100
+          type: string
+          example: Santiago Centro, 2332
+        receiverAddressLocationType:
+          maxLength: 5
+          type: string
+          example: D
+        receiverPostalCode:
+          maxLength: 5
+          type: string
+          nullable: true
+          example: "102"
+        receiverFloor:
+          maxLength: 5
+          type: integer
+          format: int32
+          example: 1
+        receiverDocumentType:
+          maxLength: 20
+          type: string
+          example: DNI
+        receiverDocumentNumber:
+          maxLength: 20
+          type: string
+          example: "48037257"
+        receiverLastName:
+          maxLength: 100
+          type: string
+          example: Manrique
+        receiverSecondLastName:
+          maxLength: 100
+          type: string
+          nullable: true
+          example: De Cruch
+        receiverName:
+          maxLength: 100
+          type: string
+          example: Esteban
+        receiverPhone:
+          maxLength: 20
+          type: string
+          nullable: true
+          example: "34534535"
+        receiverMobile:
+          maxLength: 20
+          type: string
+          example: +51963720172
+        receiverEmail:
+          maxLength: 20
+          type: string
+          example: angela_1707@hotmail.com
+    folio:
+      properties:
+        orderId:
+          maxLength: 20
+          type: string
+          description: number order customer
+          example: "1234513"
+        folioComuna:
+          maxLength: 5
+          type: integer
+          format: int32
+        observation:
+          maxLength: 200
+          type: string
+        dispatch:
+          type: array
+          items:
+            $ref: '#/components/schemas/dispatchFolio'
+        purchaser:
+          $ref: '#/components/schemas/purchaser'
+        receiver:
+          $ref: '#/components/schemas/receiver'
+    dispatchReserve:
+      properties:
+        store:
+          type: integer
+          format: int32
+          example: 123
+        dateDispatch:
+          type: string
+          description: (format yyyy-mm-dd)
+          format: date
+        sku:
+          type: array
+          items:
+            $ref: '#/components/schemas/skuDispatch'
+    reserve:
+      properties:
+        orderId:
+          maxLength: 20
+          type: string
+          description: number order customer
+          example: "1234513"
+        dispatch:
+          type: array
+          items:
+            $ref: '#/components/schemas/dispatchReserve'
+    orderCustomer:
+      properties:
+        folios:
+          $ref: '#/components/schemas/folio'
+        reserve:
+          $ref: '#/components/schemas/reserve'
+    error:
+      title: Error
+      required:
+      - userMessage
+      type: object
+      properties:
+        userMessage:
+          type: string
+          description: User error message
+          example: Unexpected error...
+        internalMessage:
+          type: string
+          description: Internal system error message
+          example: Internal error...
+        moreInfo:
+          type: string
+          description: Additional error information
+          example: for more information enter wwww.moreinfo.com
+      description: Standard structure for unexpected errors
+  securitySchemes:
+    oAuth2AuthCode:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: http://example.com/oauth/auth
+          tokenUrl: http://example.com/oauth/token
+          scopes:
+            write:customerOrder: allows modifying resources
+            read:customerOrder: allows reading resources
