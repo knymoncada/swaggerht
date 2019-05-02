@@ -1,0 +1,515 @@
+openapi: 3.0.0
+servers:
+# Added by API Auto Mocking Plugin
+# Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/htds1/DispatchSlots/1.0.0
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/htds/DispatchSlots/1.0.0
+info:
+  title: Dispatch Slots
+  description: HT capabilities for customer  orders
+  x-Domain: Supply Chain Execution
+  x-Capability: Order Management
+  version: "1.0.0"
+  contact:
+    name: DSR
+    email: pmmm_soporte_api@tottus.com.pe
+  
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+    
+tags:
+  - name: Slots
+    description: Slots for dispatch.
+  - name: Cotas
+    description: cotas to control the dispatches.
+  - name: ProviderProduct
+    description: products that the supplier can dispatch.
+security:
+- accessCode:
+  - read:slots
+  - write:slots
+  - read:cotas
+  - write:cotas
+  - read:providerProduct
+  - write:providerProduct
+paths:
+  /slots:
+    post:
+      tags:
+        - Slots
+      summary: ""
+      operationId: slotsCreated
+      description: ""
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Slots"
+      responses:
+        200:
+          description: slots created
+        400:
+          description: bad request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        406:
+          description: The slots entered already exists
+        500:
+          description: Internal server error
+        501:
+          description: Not Implemented
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+        - Slots
+      summary: ""
+      operationId: slotsUpdated
+      description: ""
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Slots"
+      responses:
+        200:
+          description: slots updated
+        400:
+          description: bad request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        500:
+          description: Internal server error
+        501:
+          description: Not Implemented
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /cotas:
+    post:
+      tags:
+        - Cotas
+      summary: ""
+      operationId: cotasCreated
+      description: ""
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Cotas"
+      responses:
+        200:
+          description: cota created
+        400:
+          description: bad request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        406:
+          description: Cota entered already exists
+        500:
+          description: Internal server error
+        501:
+          description: Not Implemented
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+        - Cotas
+      summary: ""
+      operationId: cotasUpdated
+      description: ""
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Cotas"
+      responses:
+        200:
+          description: cota updated
+        400:
+          description: bad request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        500:
+          description: Internal server error
+        501:
+          description: Not Implemented
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /providerProduct:
+    post:
+      tags:
+        - ProviderProduct
+      summary: ""
+      operationId: providerProductCreated
+      description: ""
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProviderProduct"
+      responses:
+        200:
+          description: Provider Product created
+        400:
+          description: bad request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        406:
+          description: Provider Product entered already exists
+        500:
+          description: Internal server error
+        501:
+          description: Not Implemented
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+        - ProviderProduct
+      summary: ""
+      operationId: providerProductUpdated
+      description: ""
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProviderProduct"
+      responses:
+        200:
+          description: Provider Product updated
+        400:
+          description: bad request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        500:
+          description: Internal server error
+        501:
+          description: Not Implemented
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Slots:
+      type: object
+      description: "slots for dispatch"
+      required:
+        - dispatchWh
+        - deliveryWH
+        - comuna
+        - leadTime
+        - shippingMethod
+        - hourDispatch
+        - surchargeAmount
+        - monday
+        - tuesday
+        - wednesday
+        - thursday
+        - friday
+        - saturday
+        - sunday
+      properties:
+        dispatchWh:
+          type: integer
+          format: int32
+          maxLength: 12
+          description: "code dispatch warehouse"
+          example: 564
+        deliveryWH: 
+          type: integer
+          format: int32
+          maxLength: 12
+          description: "code delivery warehouse"
+          example: 550
+        comuna: 
+          type: integer
+          format: int32
+          maxLength: 12
+          description: "code comuna or district"
+          example: 150112
+        rutProvider: 
+          type: string
+          maxLength: 20
+          nullable: true
+          description: "rut provider when then dispatch is done for provider"
+          example: "12356988981"
+        leadTime: 
+          type: integer
+          format: int32
+          maxLength: 4
+          description: "lead time to make ready the dispatch"
+          example: 5
+        shippingMethod: 
+          type: string
+          maxLength: 30
+          description: "method shipping for delivery"
+          example: "Regular"
+        hourDispatch: 
+          type: string
+          maxLength: 20
+          description: "hour for dispatch"
+          example: "8-20"
+        surchargeAmount: 
+          type: number
+          format: float
+          description: "surcharge amount for the dispatch of the order, precision [7,3]"
+          example: 15.000
+        monday: 
+          type: integer
+          format: int32
+          maxLength: 1
+          minimum: 0
+          maximum: 1
+          description: > 
+            indicator to validate if you can dispatch that day.
+            value:
+             * '1' - valid
+             * '0' - not valid
+          example: 1
+        tuesday: 
+          type: integer
+          format: int32
+          maxLength: 1
+          minimum: 0
+          maximum: 1
+          description: > 
+            indicator to validate if you can dispatch that day.
+            value:
+             * '1' - valid
+             * '0' - not valid
+          example: 1
+        wednesday: 
+          type: integer
+          format: int32
+          maxLength: 1
+          minimum: 0
+          maximum: 1
+          description: > 
+            indicator to validate if you can dispatch that day.
+            value:
+             * '1' - valid
+             * '0' - not valid
+          example: 1
+        thursday: 
+          type: integer
+          format: int32
+          maxLength: 1
+          minimum: 0
+          maximum: 1
+          description: > 
+            indicator to validate if you can dispatch that day.
+            value:
+             * '1' - valid
+             * '0' - not valid
+          example: 1
+        friday: 
+          type: integer
+          format: int32
+          maxLength: 1
+          minimum: 0
+          maximum: 1
+          description: > 
+            indicator to validate if you can dispatch that day.
+            value:
+             * '1' - valid
+             * '0' - not valid
+          example: 1
+        saturday: 
+          type: integer
+          format: int32
+          maxLength: 1
+          minimum: 0
+          maximum: 1
+          description: > 
+            indicator to validate if you can dispatch that day.
+            value:
+             * '1' - valid
+             * '0' - not valid
+          example: 1
+        sunday: 
+          type: integer
+          format: int32
+          maxLength: 1
+          minimum: 0
+          maximum: 1
+          description: > 
+            indicator to validate if you can dispatch that day.
+            value:
+             * '1' - valid
+             * '0' - not valid
+          example: 0
+    
+    Cotas:
+      type: object
+      description: "cotas to control the dispatches"
+      required:
+        - deliveryWh
+        - comuna
+        - shippingMethod
+        - hourDispatch
+        - date
+        - quantity
+        - quantityMax
+      properties:
+        deliveryWh: 
+          type: integer
+          format: int32
+          maxLength: 12
+          description: "code dispatch warehouse"
+          example: 550
+        comuna: 
+          type: integer
+          format: int32
+          maxLength: 12
+          description: "code comuna or district"
+          example: 150112
+        shippingMethod:
+          type: string
+          maxLength: 30
+          description: "method shipping for delivery"
+          example: "Regular"
+        hourDispatch:
+          type: string
+          maxLength: 20
+          description: "hour for dispatch"
+          example: "8-20"
+        date:
+          type: string
+          format: date
+          maxLength: 10
+          description: "date for dispatch. Format [yyyy-mm-dd]"
+          example: "2019-01-01"
+        rutProvider:
+          type: string
+          maxLength: 20
+          nullable: true
+          description: "rut provider when then dispatch is done for provider"
+          example: "12356988981"
+        quantity:
+          type: integer
+          format: int32
+          maxLength: 4
+          description: "number of customer orders created"
+          example: 5
+        quantityMax: 
+          type: integer
+          format: int32
+          maxLength: 4
+          description: "number maximun of customer orders created"
+          example: 50
+    ProviderProduct:
+      type: object
+      description: "products that the supplier can dispatch"
+      required:
+        - dispatchWh
+        - comuna
+        - sku
+        - valuedCost
+        - valid
+      properties:
+        dispatchWh: 
+          type: integer
+          format: int32
+          maxLength: 12
+          description: "code dispatch warehouse"
+          example: 564
+        comuna: 
+          type: integer
+          format: int32
+          maxLength: 12
+          description: "code comuna or district"
+          example: 150112
+        rutProvider: 
+          type: string
+          maxLength: 20
+          nullable: true
+          description: "rut provider when then dispatch is done for provider"
+          example: "12356988981"
+        sku: 
+          type: string
+          maxLength: 12
+          description: code product identifier
+          example: "41864217"
+        valuedCost: 
+          type: number
+          format: float
+          description: "cost associated with the product by size configuration. precision [7,3]"
+          example: 12.500
+        valid:
+          type: integer
+          format: int32
+          maxLength: 1
+          minimum: 0
+          maximum: 1
+          description: > 
+            "if it is a product that the provider attends"
+            value:
+             * '1' - valid
+             * '0' - not valid
+          example: 1
+    Error:
+      title: Error
+      required:
+      - userMessage
+      type: object
+      properties:
+        userMessage:
+          type: string
+          description: User error message
+          example: Unexpected error...
+        internalMessage:
+          type: string
+          description: Internal system error message
+          example: Internal error...
+        moreInfo:
+          type: string
+          description: Additional error information
+          example: for more information enter wwww.moreinfo.com
+      description: Standard structure for unexpected errors
+  securitySchemes:
+    oAuth2AuthCode:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: http://example.com/oauth/auth
+          tokenUrl: http://example.com/oauth/token
+          scopes:
+            write:customerOrder: allows modifying resources
+            read:customerOrder: allows reading resources
