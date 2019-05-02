@@ -7,9 +7,9 @@ servers:
 info:
   description: business object that represent price product of Tottus Corp
   version: "1.0.0"
-  title: Price HT
+  title: Price
   contact:
-    email: pmm_api_ht@tottus.com.pe
+    email: kmmoncada@tottus.com.pe
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
