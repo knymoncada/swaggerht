@@ -1,0 +1,320 @@
+openapi: 3.0.0
+# Added by API Auto Mocking Plugin
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/htds2/Stock/1.0.0
+info:
+  description: This is a simple API
+  version: "1.0.0"
+  title: Simple Inventory API
+  contact:
+    email: kmmoncada@tottus.com.pe
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+security:
+  - accessCode:
+      - read_stock
+      - write_stock
+tags:
+  - name: stock
+    description: stock of product in a store
+  - name: stockAllStore
+    description: stock of producto in all store
+  - name: stockAllProduct
+    description: stock in a store of all products
+paths:
+  /stock:
+    get:
+      tags:
+        - stock
+      summary: "Search stock of product in a store."
+      operationId: GetStockProduct
+      description: "Get stock of product in a store."
+      security: 
+        - accessCode: 
+          - read_stock
+      parameters:
+        - in: path
+          name: sku
+          description: code de product
+          required: true
+          schema:
+            type: string
+          
+        - in: path
+          name: store
+          description: number store 
+          required: true
+          schema:
+            type: number
+            format: int32
+      responses:
+        200:
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/stock'
+        400:
+          description: bad request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Product not Found
+        405:
+          description: Store not Found
+        500:
+          description: Internal server error
+        501:
+          description: Not Implemented
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    post:
+      tags:
+        - stock
+      summary: "Create a stock of product in a store."
+      operationId: StockCreated
+      description: "Create a stock of product in a store."
+      security: 
+        - accessCode: 
+          - write_stock
+      requestBody: 
+        content:
+           application/json:
+            schema:
+              $ref: '#/components/schemas/stock'
+        required: true
+      responses:
+        200:
+          description: product created
+        400:
+          description: bad request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Product not Found
+        405:
+          description: Store not Found
+        406:
+          description: The product entered already exists
+        500:
+          description: Internal server error
+        501:
+          description: Not Implemented
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    put:
+      tags:
+        - stock
+      summary: 'Update stock of product in a store.'
+      operationId: StockUpdated
+      description: 'Update stock of product in a store.'
+      security: 
+        - accessCode: 
+          - write_stock
+      requestBody: 
+        content:
+           application/json:
+            schema:
+              $ref: '#/components/schemas/stock'
+        required: true
+      responses:
+        200:
+          description: stock successfully updated
+        400:
+          description: bad request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Product not Found
+        405:
+          description: Store not Found
+        500:
+          description: Internal server error
+        501:
+          description: Not Implemented
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  
+  /stock/{sku}:
+    get:
+      tags:
+        - stockAllStore
+      summary: "Stock of a product in all stores."
+      operationId: getStockAllStore
+      description: "get stock of a product in all stores"
+      security: 
+        - accessCode: 
+          - read_stock
+      parameters:
+        - in: path
+          name: sku
+          description: sku of product
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/stock'
+        400:
+          description: bad request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Product not Found
+        500:
+          description: Internal server error
+        501:
+          description: Not Implemented
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  
+  /stock/{store}:
+    get:
+      tags:
+        - stockAllProduct
+      summary: "Stock of the products of a store."
+      operationId: GetstockAllProduct
+      description: "stock of the products of a store"
+      security: 
+        - accessCode: 
+          - read_stock
+      parameters:
+        - in: path
+          name: store
+          description: number store
+          required: true
+          schema:
+            type: integer
+            format: int32
+      
+      responses:
+        200:
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/stock'
+        400:
+          description: bad request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        405:
+          description: Store not Found
+        500:
+          description: Internal server error
+        501:
+          description: Not Implemented
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  
+components:
+  schemas:
+    stock:
+      type: object
+      required:
+        - stockAvailable
+        - stockOnLine
+        - averageCost
+      properties:
+        sku:
+          type: string
+          description: "sku of product"
+          example: '04142454'
+        store:
+          type: integer
+          format: int32
+          description: "number of store"
+          example: 123
+        stockAvailable:
+          type: number
+          format: float
+          description: "stock available without daily sales [format (11,4)]"
+          example: 100.0000
+        stockOnLine:
+          type: number
+          format: float
+          description: "stock available in store minus daily sales [format (11,4)]"
+          example: 90.0000
+        purcharseOrden:
+          type: number
+          format: float
+          description: "quantity of products of purchase orders in transit [format (11,4)]"
+          example: 90.0000
+        transferOrden:
+          type: number
+          format: float
+          description: "quantity of transfer products in transit [format (11,4)]"
+          example: 90.0000
+        averageCost:
+          type: number
+          format: float
+          description: "average cost of product in store [format (16,5)]"
+          example: 15.50000
+    error:
+      required:
+      - userMessage
+      type: object
+      properties:
+        userMessage:
+          type: string
+          description: User error message
+          example: Unexpected error...
+        internalMessage:
+          type: string
+          description: Internal system error message
+          example: Internal error...
+        moreInfo:
+          type: string
+          description: Additional error information
+          example: for more information enter wwww.moreinfo.com
+      description: Standard structure for unexpected errors
+  securitySchemes:
+    accessCode:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: 'http://example.com/oauth/auth'
+          tokenUrl: 'http://example.com/oauth/token'
+          scopes:
+            write_stock: allows modifying resources
+            read_stock: allows reading resources
