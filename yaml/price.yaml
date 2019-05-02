@@ -5,7 +5,7 @@ servers:
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/htds1/Price/1.0.0
 info:
-  description: business object that represent price product of Tottus Corp
+  description: Entity that represent price product of Tottus Corp
   version: "1.0.0"
   title: Price
   contact:
