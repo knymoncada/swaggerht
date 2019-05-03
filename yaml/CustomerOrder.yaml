@@ -288,7 +288,7 @@ components:
     orderCustomer:
       properties:
         folios:
-          $ref: 'https://app.swaggerhub.com/domains/htds1/tottus/1.0/components/schemas/folio'
+          $ref: 'https://app.swaggerhub.com/domains/htds1/tottus/1.0#/components/schemas/folio'
           # '#/components/schemas/folio'
         reserve:
           $ref: '#/components/schemas/reserve'
