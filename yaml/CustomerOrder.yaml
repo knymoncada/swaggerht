@@ -287,7 +287,7 @@ components:
             $ref: '#/components/schemas/dispatchReserve'
     orderCustomer:
       properties:
-        folios:
+        folios: 
           $ref: 'https://api.swaggerhub.com/domains/htds1/tottus/1.0#/components/schemas/folio'
           # '#/components/schemas/folio'
         reserve:
