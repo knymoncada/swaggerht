@@ -52,7 +52,7 @@ paths:
         content:
            application/json:
             schema:
-              $ref: '#/components/schemas/provider'
+              $ref: 'https://api.swaggerhub.com/domains/htds/Tottus/1.0.0#/components/schemas/Provider'
         required: true
       responses:
         200:
@@ -80,23 +80,6 @@ paths:
        
 components:
   schemas:
-  
-    provider:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Provider Name
-          example: 'Apple'
-        rut:
-          type: string
-          description: Rut of Provider
-          example: '24527271-5'
-        country:
-          type: string
-          description: Country of product
-          example: 'PE'
-          
     error:
       required:
       - userMessage
