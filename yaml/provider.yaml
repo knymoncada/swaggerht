@@ -68,11 +68,11 @@ paths:
       tags:
         - Provider
       summary: Updates a provider 
-      operationId: ProviderUpdated
+      operationId: updatedProvider
       description: Updates a provider to the system
       security: 
-        - oAuth2AuthCode: 
-          - write:provider
+        - accessCode: 
+          - write
       parameters:
         - in: path
           name: rut
