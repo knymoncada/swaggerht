@@ -16,7 +16,7 @@ info:
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 tags:
   - name: Provider
-    description: Provider of a store
+    description: Provider of Tottus
 security:
   - accessCode:
       - read
