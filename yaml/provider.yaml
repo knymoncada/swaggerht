@@ -37,7 +37,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/provider'
+              $ref:  'https://api.swaggerhub.com/domains/htds/Tottus/1.0.0#/components/schemas/Provider'
 
     put:
       tags:
