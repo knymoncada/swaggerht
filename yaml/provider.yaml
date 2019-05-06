@@ -119,38 +119,34 @@ paths:
       security: 
         - oAuth2AuthCode: 
           - write:provider
-      responses:
-         '200':
-          description: Successful operation
-         '400':
-          description: Error on legacy
       requestBody:
         content:
           application/json:
             schema:
               $ref: 'https://api.swaggerhub.com/domains/htds/Tottus/1.0.0#/components/schemas/Provider'
-
+      responses:
+        200:
+          description: provider created
+        400:
+          description: bad request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        406:
+          description: The provifrt entered already exists
+        500:
+          description: Internal server error
+        501:
+          description: Not Implemented
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/htds/Tottus/1.0.0#/components/schemas/Error'
 components:
-  schemas:
-    error:
-      required:
-      - userMessage
-      type: object
-      properties:
-        userMessage:
-          type: string
-          description: User error message
-          example: Unexpected error
-        internalMessage:
-          type: string
-          description: Internal system error message
-          example: Internal error
-        moreInfo:
-          type: string
-          description: Additional error information
-          example: Unexpected errors
-      description: Standard structure for unexpected errors         
-          
+
   securitySchemes:
     accessCode:
       type: oauth2
