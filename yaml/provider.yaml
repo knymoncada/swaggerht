@@ -84,7 +84,7 @@ paths:
         content:
            application/json:
             schema:
-              $ref: 'https://app.swaggerhub.com/domains/htds/HTCorpDomain/1.0.0/components/schemas/Provider'
+              $ref: 'https://app.swaggerhub.com/domains/htds/HTCorpDomain/1.0.0#/components/schemas/Provider'
         required: true
       responses:
         200:
