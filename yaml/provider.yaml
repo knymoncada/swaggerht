@@ -45,7 +45,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'https://app.swaggerhub.com/domains/htds2/PruebaD1/1.0#/components/schemas/ErrorModel'
+                $ref: 'https://app.swaggerhub.com/domains/htds/HTCorpDomain/1.0.0#/components/schemas/HierarchyTree'
         400:
           description: bad request
         401:
