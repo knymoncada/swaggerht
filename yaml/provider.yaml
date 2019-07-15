@@ -45,7 +45,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'https://app.swaggerhub.com/domains/htds2/PruebaD1/1.0#/components/schemas/ErrorModel'
+                $ref: 'https://app.swaggerhub.com/domains/htds/HTCorpDomain/1.0.0#/components/schemas/Provider'
         400:
           description: bad request
         401:
@@ -146,7 +146,6 @@ paths:
               schema:
                 $ref: 'https://api.swaggerhub.com/domains/htds/Tottus/1.0.0#/components/schemas/Error'
 components:
-
   securitySchemes:
     accessCode:
       type: oauth2
