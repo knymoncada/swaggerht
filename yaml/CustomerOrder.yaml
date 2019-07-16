@@ -115,17 +115,13 @@ paths:
                 $ref: '#/components/schemas/errorPayment'
       responses:
         201:
-          description: process.
+          description: message process.
           headers:
             Request-Id:
               description: identifier to process request.
               schema:
                 type: string
                 example: '05a1c531-6733-4b98-8410-9dbb3ea416f6'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
         400:
           description: bad request
         401:
