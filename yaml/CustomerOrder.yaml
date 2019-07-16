@@ -3,8 +3,6 @@ servers:
 # Added by API Auto Mocking Plugin
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/htds1/CustomerOrder/1.0.0
-  - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/htds/CustomerOrder/1.0.0
 info:
   title: Customer Order HT
   description: HT capabilities for customer  orders
@@ -13,7 +11,7 @@ info:
   version: "1.0.0"
   contact:
     name: DSR
-    email: pmmm_soporte_api@tottus.com.pe
+    email: kmmoncada@tottus.com.pe
   
   license:
     name: Apache 2.0
@@ -26,7 +24,7 @@ security:
   - read:customerOrder
   - write:customerOrder
 paths:
-  /orderCustomer:
+  /customerOrder:
     get:
       tags:
         - OrderCustomer
@@ -102,6 +100,51 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
   
+# operacion para mensajes de error de pago
+  /customerOrder/PaymentError:
+    post: 
+      tags: 
+        - Payment
+      summary: Report error process. 
+      operationId: paymentErrorProces
+      description: Process to report error in the customer order payment process.
+      requestBody:
+        content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorPayment'
+      responses:
+        201:
+          description: process.
+          headers:
+            Request-Id:
+              description: identifier to process request.
+              schema:
+                type: string
+                example: '05a1c531-6733-4b98-8410-9dbb3ea416f6'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        400:
+          description: bad request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: order customer not Found
+        500:
+          description: Internal server error
+        501:
+          description: Not Implemented
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+
 components:
   schemas:
     skuDispatch:
@@ -311,6 +354,28 @@ components:
           description: Additional error information
           example: for more information enter wwww.moreinfo.com
       description: Standard structure for unexpected errors
+    errorPayment:
+      type: object
+      required: 
+        - orderId
+        - channelOrder
+        - messageError
+      properties:
+        orderId:
+          maxLength: 20
+          type: string
+          description: number order customer.
+          example: "1234513"
+        channelOrder:
+          maxLength: 20
+          type: string
+          description: Channel that generates customer order.
+          example: "Linio"
+        messageError:
+          maximum: 300
+          type: string
+          description: payment process error message.
+          example: "error process"
   securitySchemes:
     oAuth2AuthCode:
       type: oauth2
