@@ -101,7 +101,7 @@ paths:
                 $ref: '#/components/schemas/error'
   
 # operacion para mensajes de error de pago
-  /customerOrder/PaymentError:
+  /customer-order/payment-error:
     post: 
       tags: 
         - Payment
@@ -350,6 +350,7 @@ components:
           description: Additional error information
           example: for more information enter wwww.moreinfo.com
       description: Standard structure for unexpected errors
+    
     errorPayment:
       type: object
       required: 
