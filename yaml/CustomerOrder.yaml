@@ -108,6 +108,13 @@ paths:
       summary: Report error process. 
       operationId: paymentErrorProces
       description: Process to report error in the customer order payment process.
+      parameters: 
+        - in: path
+          name: orderId
+          description: code order customer
+          required: true
+          schema:
+            type: string
       requestBody:
         content:
             application/json:
@@ -331,6 +338,7 @@ components:
           # '#/components/schemas/folio'
         reserve:
           $ref: '#/components/schemas/reserve'
+    
     error:
       title: Error
       required:
