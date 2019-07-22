@@ -339,7 +339,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/dispatchReserve'
-|    OrderCustomer:
+|   OrderCustomer:
       properties:
         folios: 
           $ref: 'https://api.swaggerhub.com/domains/htds1/tottus/1.0#/components/schemas/folio'
