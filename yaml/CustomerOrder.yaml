@@ -3,6 +3,10 @@ servers:
 # Added by API Auto Mocking Plugin
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/htds1/CustomerOrder/1.0.0
+  - description: Customer Order Dev Server
+    url: https://api-tottus-modleg.buffetcloud.io/qa/
+  - description: Customer Order Dev Server
+    url: https://api-tottus-modleg.buffetcloud.io/
 info:
   title: Customer Order HT
   description: HT capabilities for customer  orders
@@ -101,7 +105,7 @@ paths:
                 $ref: '#/components/schemas/error'
   
 # operacion para mensajes de error de pago
-  /customer-order/payment-error:
+  /api/v1/customer-order/order/payment-error/{orderId}/:
     post: 
       tags: 
         - Payment
