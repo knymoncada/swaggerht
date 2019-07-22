@@ -3,13 +3,13 @@ servers:
 # Added by API Auto Mocking Plugin
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/htds1/CustomerOrder/1.0.0
-  - description: Customer Order Dev Server
+  - description: Dev Server
     url: https://api-tottus-modleg.buffetcloud.io/qa/
-  - description: Customer Order Dev Server
+  - description: Prod Server
     url: https://api-tottus-modleg.buffetcloud.io/
 info:
   title: Customer Order HT
-  description: HT capabilities for customer  orders
+  description: '<p><b>HT capabilities for customer  orders Group</b></p><p>Domain: Supply Chain Excecution</p><p>Capabilty: Order Management</p><p>'
   x-Domain: Supply Chain Execution
   x-Capability: Order Management
   version: "1.0.0"
