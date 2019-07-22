@@ -32,7 +32,7 @@ security:
   - read:customerOrder
   - write:customerOrder
 paths:
-  /customerOrder:
+  /customer-order:
     get:
       tags:
         - OrderCustomer
