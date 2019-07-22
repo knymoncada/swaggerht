@@ -107,54 +107,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error'
-  
-# operacion para mensajes de error de pago
-  /api/v1/customer-order/payment-error/{orderId}/:
-    post: 
-      tags: 
-        - Payment
-      summary: Report error process. 
-      operationId: paymentErrorProcess
-      description: Process to report error in the customer order payment process.
-      parameters: 
-        - in: path
-          name: orderId
-          description: code order customer
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorPayment'
-      responses:
-        201:
-          description: message process.
-          headers:
-            Request-Id:
-              description: identifier to process request.
-              schema:
-                type: string
-                example: '05a1c531-6733-4b98-8410-9dbb3ea416f6'
-        400:
-          description: bad request
-        401:
-          description: Unauthorized
-        403:
-          description: Forbidden
-        404:
-          description: order customer not Found
-        500:
-          description: Internal server error
-        501:
-          description: Not Implemented
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
 
 components:
   schemas:
