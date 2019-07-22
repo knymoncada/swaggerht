@@ -114,7 +114,7 @@ paths:
       tags: 
         - Payment
       summary: Report error process. 
-      operationId: paymentErrorProces
+      operationId: paymentErrorProcess
       description: Process to report error in the customer order payment process.
       parameters: 
         - in: path
