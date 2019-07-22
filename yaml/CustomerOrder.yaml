@@ -87,7 +87,7 @@ paths:
         content:
             application/json:
               schema:
-                $ref: '#/components/schemas/orderCustomer'
+                $ref: '#/components/schemas/OrderCustomer'
       responses:
         200:
           description: successful operation
@@ -339,7 +339,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/dispatchReserve'
-    orderCustomer:
+    OrderCustomer:
       properties:
         folios: 
           $ref: 'https://api.swaggerhub.com/domains/htds1/tottus/1.0#/components/schemas/folio'
