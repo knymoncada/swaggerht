@@ -9,7 +9,9 @@ servers:
     url: https://api-tottus-modleg.buffetcloud.io/
 info:
   title: Customer Order HT
-  description: '<p><b>HT capabilities for customer  orders Group</b></p><p>Domain: Supply Chain Excecution</p><p>Capabilty: Order Management</p><p>'
+  description: '<p><b>HT capabilities for customer  orders Group</b></p>
+    <p>Domain: Supply Chain Excecution</p>
+    <p>Capabilty: Order Management</p><p>'
   x-Domain: Supply Chain Execution
   x-Capability: Order Management
   version: "1.0.0"
